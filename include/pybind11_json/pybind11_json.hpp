@@ -16,7 +16,7 @@
 
 #include "pybind11/pybind11.h"
 #include "pybind11/numpy.h"
-#include <iostream>
+//#include <iostream>
 
 namespace py = pybind11;
 
@@ -88,28 +88,28 @@ namespace nlohmann
             if (py::isinstance<py::array>(obj))
             {
                 auto out = json::array();
-                std::cout << "is_array  ";
+                //std::cout << "is_array  ";
                 for (const py::handle& value : obj) {
                     if (py::isinstance<py::array>(value)) {
-                        std::cout << "array" << std::endl;
+                        //std::cout << "array" << std::endl;
                         out.push_back(to_json_impl(value));
                     } else if (py::isinstance<py::array_t<std::int32_t>>(obj)) {
-                        std::cout << "int32_t" << std::endl;
+                        //std::cout << "int32_t" << std::endl;
                         out.push_back(value.cast<std::int32_t>());
                     } else if (py::isinstance<py::array_t<std::int64_t>>(obj)) {
-                        std::cout << "int64_t" << std::endl;
+                        //std::cout << "int64_t" << std::endl;
                         out.push_back(value.cast<std::int64_t>());
                     } else if (py::isinstance<py::array_t<std::double_t>>(obj)) {
-                        std::cout << "double_t" << std::endl;
+                        //std::cout << "double_t" << std::endl;
                         out.push_back(value.cast<std::double_t>());
                     } else if (py::isinstance<py::array_t<bool>>(obj)) {
-                        std::cout << "bool" << std::endl;
+                        //std::cout << "bool" << std::endl;
                         out.push_back(value.cast<bool>());
                     } else {
                         throw std::runtime_error("to_json not implemented for this type of object: " + obj.cast<std::string>());
                     }
                 }
-                std::cout << out << std::endl;
+                //std::cout << out << std::endl;
                 return out;
             }
             if (py::isinstance<py::float_>(obj))
